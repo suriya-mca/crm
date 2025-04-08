@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} {% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+</head>
+
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' id="messages-container" hx-boost="true"> 
+
+    <div class="container">
+        
+        {% block content %}
+
+        {% endblock content %}
+      
+    </div>
+
+    <script src="{% static 'js/htmx/htmx.min.js' %}" defer></script>
+
+</body>
+
+</html>

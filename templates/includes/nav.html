@@ -1,0 +1,32 @@
+<nav class="navbar px-2 has-shadow" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item has-text-primary" href="#" title="Logo">
+            <strong>OpenCRM</strong>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navMenu" class="navbar-menu">
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                            <a class="button is-primary" href="{% url 'admin:index' %}" title="Admin">Admin</a>
+                        {% endif %}
+                        <a class="button is-dark" href="{% url 'logout' %}" title="Log out">Log out</a>
+                    {% else %}
+                        <a class="button" href="https://github.com/suriya-mca/Crm" title="GitHub" target=”_blank”><strong>GitHub</strong></a>
+                        <a class="button is-primary" href="{% url 'login' %}" title="Log in">Log in</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

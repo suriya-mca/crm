@@ -1,11 +1,12 @@
 import datetime
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.conf import settings
 from django.views.decorators.http import require_http_methods, require_GET
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.http import HttpResponse
-from django_htmx.http import retarget, HttpResponseClientRedirect, HttpResponseClientRefresh
+from django_htmx.http import retarget, HttpResponseClientRedirect, HttpResponseClientRefresh, HttpResponseLocation
 
 from .models import UserToken
 from .utils import send_reset_email_thread, generate_token
@@ -53,7 +54,7 @@ def register(request):
 		user_token = UserToken.objects.create(user=user, token=verify_token, expiration_date=expiration_date)
 		user_token.save()
 
-		url = 'https://8000-monospace-cms-1715854674699.cluster-mwrgkbggpvbq6tvtviraw2knqg.cloudworkstations.dev/auth/verify_account'
+		url = f'{settings.DOMAIN}/auth/verify_account'
 		message = 'email/verify_account_email.html'
 		subject = 'Account Verification'
 		send_reset_email_thread(email, verify_token, url, message, subject)
@@ -108,6 +109,10 @@ def login(request):
 			response = HttpResponse("Username not exists")               
 			return retarget(response, '#danger-username')
 
+		if not User.objects.filter(username=username, is_active=True).exists():
+			response = HttpResponse("Account not verified, check your mail")               
+			return retarget(response, '#danger-username')
+
 		user = auth.authenticate(username=username, password=password)
 
 		if user is None:
@@ -115,7 +120,7 @@ def login(request):
 			return retarget(response, '#danger-password')
 
 		auth.login(request, user)
-		return HttpResponseClientRedirect('/auth/register')
+		return HttpResponseClientRedirect('/contact/lists')
        
 	return render(request, 'pages/auth/login.html')
 
@@ -143,7 +148,7 @@ def forgot_password(request):
 		user_token = UserToken.objects.create(user=user, token=reset_token, expiration_date=expiration_date)
 		user_token.save()
 
-		url = 'https://8000-monospace-cms-1715854674699.cluster-mwrgkbggpvbq6tvtviraw2knqg.cloudworkstations.dev/auth/reset_password'
+		url = f'{settings.DOMAIN}/auth/reset_password'
 		message = 'email/reset_password_email.html'
 		subject = 'Password Reset'
 		send_reset_email_thread(email, reset_token, url, message, subject)

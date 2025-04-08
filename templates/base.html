@@ -1,50 +1,41 @@
-{% load compress %}
-
 {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <title>{% block title %} {% endblock %}</title>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Cms{% endblock %}</title>
-    
-    <meta name="description" content="Content Management System">
-    <meta name="keywords" content="Cms, Blog, Posts">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta name="description" content="OpenSource Customer Relationship Management">
+    <meta name="keywords" content="Crm, Customer Relationship Management, OpenCRM">
     <meta name="author" content="Suriya">
 
-    <meta property="og:title" content="Cms">
-    <meta property="og:description" content="Content Management System">
+    <meta property="og:title" content="Free OpenSource CRM Software">
+    <meta property="og:description" content="Discover our powerful and free open-source CRM software, designed to help you manage customer relationships efficiently and boost your business growth.">
     <meta property="og:image" content="URL to your website's main image for sharing">
-    <meta property="og:url" content="URL to the current page">
+    <meta property="og:url" content="https://8000-idx-crm-1717074082797.cluster-bec2e4635ng44w7ed22sa22hes.cloudworkstations.dev">
+    <meta property="og:type" content="website">
+
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free OpenSource CRM Software">
+    <meta name="twitter:description" content="Discover our powerful and free open-source CRM software, designed to help you manage customer relationships efficiently and boost your business growth.">
+    <meta name="twitter:image" content="https://www.example.com/images/twitter-image.jpg">
+    <meta name="twitter:url" content="https://8000-idx-crm-1717074082797.cluster-bec2e4635ng44w7ed22sa22hes.cloudworkstations.dev">
+    
+    <meta name="theme-color" content="#00D1B2">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
 </head>
 
-<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+<body id="body" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+        
+    {% block layout %}
 
-    {% include 'partials/nav.html' %}    
+    {% endblock %}
 
-    <div class="container">
-
-        {% block content %}
-
-        {% endblock content %}
-      
-    </div>
-
-    {% compress js %}
-
-        <script src="{% static 'js/htmx/htmx.min.js' %}" defer></script>
-        <script src="{% static 'js/partial/nav.js' %}" defer></script>
-        <script src="{% static 'js/auth/login.js' %}" defer></script>
-        <script src="{% static 'js/auth/register.js' %}" defer></script>
-        <script src="{% static 'js/auth/reset_password.js' %}" defer></script>
-        <script src="{% static 'js/auth/forget_password.js' %}" defer></script>
-    
-    {% endcompress %}
+    <script defer src="{% static 'js/htmx/htmx.min.js' %}"></script>
 
 </body>
 

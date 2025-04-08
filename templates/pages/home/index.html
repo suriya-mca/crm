@@ -1,0 +1,23 @@
+{% extends 'layout_3.html' %}
+
+{% block title %}OpenCRM{% endblock %}
+
+{% block content %}
+
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title">
+                Open Source CRM Software
+            </h1>
+            <h2 class="subtitle mt-3">
+                We're glad to have you here!
+            </h2>
+            <div>
+                <a type="button" href="{% url 'register' %}" class="button is-primary" title="Register">Get Satarted</a>
+            </div> 
+        </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layout_2.html' %}
 
 {% block title %}Verify Account{% endblock %}
 
@@ -8,7 +8,7 @@
 	    <div class="hero-body">
 	        <div class="container has-text-centered">
 	            <h3 class="subtitle is-3" id="verify-message">{{ message }}</h3>
-	            <a href="{% url 'login' %}" class="button is-primary" title="Home Page">Log in</a>
+	            <a href="{% url 'login' %}" class="button is-primary is-dark" title="Home Page">Log in</a>
 	        </div>
 	    </div>
 	</section>

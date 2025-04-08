@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 services:
 
@@ -7,20 +7,23 @@ services:
         env_file: .env
         container_name: cms
         ports:
-            - "8000"
+            - "8000:8000"
         volumes:
-            - static-data:/vol/static
-
-    proxy:
-        build:
-            context: ./proxy
-        env_file: .env
-        volumes:
-            - static-data:/vol/static
-        ports:
-            - "80:80"
+            - static-data:/static
         depends_on:
-            - app
+            - pgpool
+
+    pgpool:
+        image: edoburu/pgbouncer:latest
+        container_name: pgbouncer
+        restart: always
+        ports:
+            - "6432:6432"
+        environment:
+            - DATABASE_URL=postgres://postgres:postgres-password@10.88.0.4:5432/crm_db
+        volumes:
+            - ./script/pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini
+            - ./script/pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt
 
 volumes:
-    static-data:
+    static-data: 

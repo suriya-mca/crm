@@ -1,9 +1,12 @@
 .env
-env
 .idx
 .vscode
+env
+docker_dev
 account/__pycache__/
 account/migrations/__pycache__
-cms/__pycache__/
-cms/migrations/__pycache__
+contact/__pycache__/
+contact/migrations/__pycache__
 core/__pycache__
+core/django/__pycache__
+core/settings/__pycache__

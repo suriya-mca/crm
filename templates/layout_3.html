@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+        
+{% block layout %}
+
+    {% include 'includes/nav.html' %}
+
+    <div class="container" id="messages-container" hx-boost="true">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+{% endblock %}

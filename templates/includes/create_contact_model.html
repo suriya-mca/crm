@@ -1,0 +1,69 @@
+<div class="modal" id="modal-js-example">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Customer Details</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+
+        <section>
+            <form class="box" hx-post="{% url 'login' %}" hx-target="#messages-container">
+
+                {% include 'partials/message.html' %}
+
+                <div class="msg" id="messages-container"></div>
+
+                <div class="colums is-flex is-flex-direction-row">
+                    <div class="field column">
+                        <label for="user-input" class="label">Name</label>
+                        <div class="control">
+                            <input type="text" name="name" class="input" id="user-input" placeholder="Name" minlength="3" title="Name" required>
+                        </div>
+                        <p class="help is-danger" id="danger-name"></p>
+                    </div>
+
+                    <div class="field column">
+                        <label for="email-input" class="label">Email</label>
+                        <div class="control">
+                            <input type="email" name="email" class="input" id="email-input" placeholder="Email" minlength="5" title="Email" required>
+                        </div>
+                        <p class="help is-danger" id="danger-email"></p>
+                    </div>
+                </div>
+
+                <div class="colums is-flex is-flex-direction-row">
+                    <div class="field column">
+                        <label for="phone-input" class="label">Phone (with country code)</label>
+                        <div class="control">
+                            <input type="tel" name="phone" class="input" id="phone-input" placeholder="+91-9999999999" title="Phone" required>
+                        </div>
+                        <p class="help is-danger" id="danger-phone"></p>
+                    </div>
+
+                    <div class="field column">
+                        <label class="label">Category</label>
+                        <div class="select is-normal is-fullwidth">
+                            <select>
+                                <option>Select dropdown</option>
+                                <option>Customer</option>
+                                <option>Prospect</option>
+                            </select>
+                        </div>
+                        <p class="help is-danger" id="danger-password"></p>
+                    </div>
+                </div>
+
+                <div class="colums">
+                    <div class="field column">
+                        <label for="address-input" class="label">Address</label>
+                        <textarea class="textarea" placeholder="Address"></textarea>
+                    </div>
+                    <div class="field column">
+                        <button type="submit" class="button is-primary" title="Login">Add Contact</button>
+                    </div>
+                </div>
+
+            </form>
+        </section>
+    </div>
+</div>

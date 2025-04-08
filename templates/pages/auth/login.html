@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layout_2.html' %}
 
 {% block title %}Login{% endblock %}
 
@@ -12,9 +12,9 @@
                 <div class="columns is-centered">
                     <div class="column is-5-tablet is-4-desktop is-4-widescreen">
 
-                        <form class="box" hx-post="{% url 'login' %}" hx-target="#messages-container">
+                        <form class="box" hx-post="{% url 'login' %}" hx-target="#messages-container" hx-on:htmx:before-request="clientErrorCheck()">
 
-                            <p class="title is-4 mb-5 py-3 has-text-centered">Cms/login</p>
+                            <p class="title is-4 mb-5 py-3 has-text-centered">Crm/login</p>
 
                             {% include 'partials/message.html' %}
 
@@ -36,12 +36,16 @@
                                 <p class="help is-danger" id="danger-password"></p>
                             </div>
 
-                            <div class="field mt-5">
-                                <button type="submit" class="button is-primary is-dark is-fullwidth" title="Login">Log in</button>
+                            <p class="mt-4 content is-small">
+                                <a href="{% url 'forgot_password' %}" class="has-text-light" title="Register">Forget Password?</a>
+                            </p>
+
+                            <div class="field">
+                                <button type="submit" class="button is-primary is-fullwidth" title="Login">Log in</button>
                             </div>
 
-                            <p class="has-text-centered mt-4">
-                                <a href="{% url 'forgot_password' %}" class="has-text-light" title="Forget Password">Forget Password?</a>
+                            <p class="has-text-centered mt-4 is-6">
+                                <a href="{% url 'register' %}" class="has-text-light" title="Register">Don't have an account?</a>
                             </p>
 
                         </form>
@@ -51,5 +55,43 @@
             </div>
         </div>
     </section>
+
+    <script>
+
+        function clientErrorCheck() {
+            const userInput = document.getElementById('user-input');
+            const dangerUser = document.getElementById('danger-username');
+
+            const passwordInput = document.getElementById('password-input');
+            const dangerPassword = document.getElementById('danger-password');
+
+            userInput.addEventListener('input', () => {
+                if (dangerUser.innerHTML !== '') {
+                    dangerUser.innerHTML = '';
+                    userInput.classList.remove('is-danger');
+                }
+            });
+
+            passwordInput.addEventListener('input', () => {
+                if (dangerPassword.innerHTML !== '') {
+                    dangerPassword.innerHTML = '';
+                    passwordInput.classList.remove('is-danger');
+                }
+            });
+
+            document.addEventListener('htmx:afterRequest', (event) => {
+                if (event.detail.target.id === 'danger-username' && event.detail.successful) {
+                    userInput.classList.add('is-danger');
+                }
+            });
+
+            document.addEventListener('htmx:afterRequest', (event) => {
+                if (event.detail.target.id === 'danger-password' && event.detail.successful) {
+                    passwordInput.classList.add('is-danger');
+                }
+            });
+        };
+
+    </script>
 
 {% endblock %}
